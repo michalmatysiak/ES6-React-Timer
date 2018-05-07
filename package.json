@@ -1,0 +1,22 @@
+{
+  "name": "156",
+  "version": "1.0.0",
+  "description": "zadanie 15.6",
+  "main": "script.js",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-latest": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel script.js --watch --out-file script-compiled.js"
+  },
+  "keywords": [
+    "babel"
+  ],
+  "author": "michal matysiak",
+  "license": "ISC"
+}

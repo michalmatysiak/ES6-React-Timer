@@ -1,0 +1,55 @@
+body {
+	text-align: center;
+	margin: 0 auto;
+	font-size: 40px;
+	color: white;
+}
+.container {
+	background-image: url("https://images.pexels.com/photos/359989/pexels-photo-359989.jpeg?cs=srgb&dl=accurate-alarm-alarm-clock-359989.jpg&fm=jpg");
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center;
+	min-height: 100vh;
+}
+.controls {
+	padding-top: 230px;
+	text-decoration: none;
+}
+#start {
+	color: #000;
+	margin-right: 40px;
+}
+#stop {
+	color: #f0115f;
+	margin-right: 40px;
+}
+#reset {
+	color: #0b6623;
+	margin-right: 40px;
+}
+#save {
+	color: #1034a6;
+}
+.col-6 {
+  	width: 50%; 
+}
+.button {
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.stopwatch, li, a, nav {
+	padding-top: 30px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 40px;
+	
+	color: #000;
+}
+li {
+	margin-left: -40px;
+	padding-top: 0px;
+}
+ul {
+	list-style-type: none;	
+}
