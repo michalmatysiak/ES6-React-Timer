@@ -1,77 +1,103 @@
-class Stopwatch {
-  constructor(display) {
-    this.running = false;
-    this.display = display;
-    this.reset();
-    this.print(this.times);
-  }
-
-  reset() {
-    this.times = {
-      minutes: 0,
-      seconds: 0,
-      miliseconds: 0
-    };
-  }
-
-  print() {
-    this.display.innerText = this.format(this.times);
-  }
-
-  format(times) {
-    return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(
-      Math.floor(times.miliseconds)
-    )}`;
-  }
-
-  step() {
-    if (!this.running) return;
-    this.calculate();
-    this.print();
-  }
-
-  calculate() {
-    this.times.miliseconds += 1;
-    if (this.times.miliseconds >= 100) {
-      this.times.seconds += 1;
-      this.times.miliseconds = 0;
+let timeTable = [];
+class Stopwatch extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            running: false,
+            times: {
+                minutes: 0,
+                seconds: 0,
+                milliseconds: 0
+            },
+            watch: null
+        };
     }
-    if (this.times.seconds >= 60) {
-      this.times.minutes += 1;
-      this.times.seconds = 0;
+
+    getFormattedTimes() {
+    const { minutes, seconds, milliseconds } = this.state.times;
+    return `${pad0(minutes)}:${pad0(seconds)}:${pad0(Math.floor(milliseconds))}`;
+  }
+
+    start() {
+        if (!this.running) {
+        	(this.running = true), (this.watch = setInterval(() => this.step(), 10));
+        }
     }
-  }
 
-  start() {
-    if (!this.running) {
-      this.running = true;
-      this.watch = setInterval(() => this.step(), 10);
+    step() { 
+        if (!this.running) return;
+        this.calculate();
     }
+
+   
+     calculate() {
+    // pobierz ze state'a cały times (minutes, seconds, milliseconds)
+    let { minutes, seconds, milliseconds } = this.state.times;
+
+    // modyfikuj times
+    milliseconds += 1;
+    if (milliseconds >= 100) {
+      seconds += 1;
+      milliseconds = 0;
+    }
+    if (seconds >= 60) {
+      minutes += 1;
+      seconds = 0;
+    }
+
+    // ustaw nowe times
+    this.setState({
+      times: {
+        minutes,
+        seconds,
+        milliseconds
+      }
+    })
   }
+    stop() { 
+    	this.running = false;
+    	clearInterval(this.watch);
+    }
 
-  stop() {
-    this.running = false;
-    clearInterval(this.watch);
+    reset() { 
+        this.setState({
+            times: {
+                minutes: 0,
+                seconds: 0,
+                milliseconds: 0
+            }
+        });
+    }
+    get() {
+    console.log(this.getFormattedTimes(this.state.times));
+    timeTable = [...timeTable, this.getFormattedTimes(this.state.times)];
+    console.log(timeTable);
   }
-
-  resetTimer() {
-    this.times = {
-      minutes: 0,
-      seconds: 0,
-      miliseconds: 0
-    };
-    this.display.innerText = this.format(this.times);
-    document.getElementById("results").innerHTML = "";
+  results() {
+    let pos = timeTable.length - 1;
+    this.val = timeTable;
+    let addTime = timeTable[pos]
+    const res = document.getElementById('results');
+    const list = document.createElement("li");
+    list.innerText = addTime;
+    res.appendChild(list);
+    console.log(save());
   }
-
-  save() {
-    let lapTime = document.getElementById("stopwatch").innerHTML;
-    console.log(lapTime);
-
-    const nextResult = document.createElement("li");
-    const textResult = document.createTextNode(lapTime);
-    nextResult.appendChild(textResult);
-    document.getElementById("results").appendChild(nextResult);
+  render() {
+    return (
+      <div className="container">
+        <div className="col-6">    
+          <nav className="controls">
+            <a href="#" className="button" id="start" onClick={() => this.start()}>Start</a>
+            <a href="#" className="button" id="stop" onClick={() =>this.stop()}>Stop</a>
+            <a href="#" className="button" id="reset" onClick={() =>this.reset()}>Reset</a>
+            <a href="#" className="button" id="save" onClick={() =>this.get()}>Save</a>
+          </nav>
+          <div className="stopwatch" id="stopwatch">{ this.getFormattedTimes()}</div>
+          <ul className="results" id="results"></ul>
+        </div> 
+      </div>
+    );
   }
 }
 
@@ -83,16 +109,6 @@ function pad0(value) {
   return result;
 }
 
-const stopwatch = new Stopwatch(document.querySelector(".stopwatch"));
 
-let startButton = document.getElementById("start");
-startButton.addEventListener("click", () => stopwatch.start());
+ReactDOM.render(<Stopwatch />, document.getElementById("app"));
 
-let stopButton = document.getElementById("stop");
-stopButton.addEventListener("click", () => stopwatch.stop());
-
-let resetButton = document.getElementById("reset");
-resetButton.addEventListener("click", () => stopwatch.resetTimer());
-
-let saveButton = document.getElementById("save");
-saveButton.addEventListener("click", () => stopwatch.save());
