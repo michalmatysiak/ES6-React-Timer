@@ -15,19 +15,19 @@ body {
 	padding-top: 230px;
 	text-decoration: none;
 }
-#start {
+.start {
 	color: #000;
 	margin-right: 40px;
 }
-#stop {
+.stop {
 	color: #f0115f;
 	margin-right: 40px;
 }
-#reset {
+.reset {
 	color: #0b6623;
 	margin-right: 40px;
 }
-#save {
+.save {
 	color: #1034a6;
 }
 .col-6 {

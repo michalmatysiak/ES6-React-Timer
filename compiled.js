@@ -10,8 +10,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var timeTable = [];
-
 var Stopwatch = function (_React$Component) {
   _inherits(Stopwatch, _React$Component);
 
@@ -27,7 +25,8 @@ var Stopwatch = function (_React$Component) {
         seconds: 0,
         milliseconds: 0
       },
-      watch: null
+      watch: null,
+      timeTable: []
     };
     return _this;
   }
@@ -47,16 +46,19 @@ var Stopwatch = function (_React$Component) {
     value: function start() {
       var _this2 = this;
 
-      if (!this.running) {
-        this.running = true, this.watch = setInterval(function () {
-          return _this2.step();
-        }, 10);
+      if (!this.state.running) {
+        this.setState({
+          running: true,
+          watch: setInterval(function () {
+            return _this2.step();
+          }, 10)
+        });
       }
     }
   }, {
     key: "step",
     value: function step() {
-      if (!this.running) return;
+      if (!this.state.running) return;
       this.calculate();
     }
   }, {
@@ -92,8 +94,10 @@ var Stopwatch = function (_React$Component) {
   }, {
     key: "stop",
     value: function stop() {
-      this.running = false;
-      clearInterval(this.watch);
+      this.setState({
+        running: false
+      });
+      clearInterval(this.state.watch);
     }
   }, {
     key: "reset",
@@ -109,21 +113,9 @@ var Stopwatch = function (_React$Component) {
   }, {
     key: "get",
     value: function get() {
-      console.log(this.getFormattedTimes(this.state.times));
-      timeTable = [].concat(_toConsumableArray(timeTable), [this.getFormattedTimes(this.state.times)]);
-      console.log(timeTable);
-    }
-  }, {
-    key: "results",
-    value: function results() {
-      var pos = timeTable.length - 1;
-      this.val = timeTable;
-      var addTime = timeTable[pos];
-      var res = document.getElementById('results');
-      var list = document.createElement("li");
-      list.innerText = addTime;
-      res.appendChild(list);
-      console.log(save());
+      this.setState({
+        timeTable: [].concat(_toConsumableArray(this.state.timeTable), [this.getFormattedTimes()])
+      });
     }
   }, {
     key: "render",
@@ -141,28 +133,40 @@ var Stopwatch = function (_React$Component) {
             { className: "controls" },
             React.createElement(
               "a",
-              { href: "#", className: "button", id: "start", onClick: function onClick() {
+              {
+                href: "#",
+                className: "button start",
+                onClick: function onClick() {
                   return _this3.start();
-                } },
+                }
+              },
               "Start"
             ),
             React.createElement(
               "a",
-              { href: "#", className: "button", id: "stop", onClick: function onClick() {
+              {
+                href: "#",
+                className: "button stop",
+                onClick: function onClick() {
                   return _this3.stop();
-                } },
+                }
+              },
               "Stop"
             ),
             React.createElement(
               "a",
-              { href: "#", className: "button", id: "reset", onClick: function onClick() {
+              {
+                href: "#",
+                className: "button reset",
+                onClick: function onClick() {
                   return _this3.reset();
-                } },
+                }
+              },
               "Reset"
             ),
             React.createElement(
               "a",
-              { href: "#", className: "button", id: "save", onClick: function onClick() {
+              { href: "#", className: "button save", onClick: function onClick() {
                   return _this3.get();
                 } },
               "Save"
@@ -170,10 +174,20 @@ var Stopwatch = function (_React$Component) {
           ),
           React.createElement(
             "div",
-            { className: "stopwatch", id: "stopwatch" },
+            { className: "stopwatch" },
             this.getFormattedTimes()
           ),
-          React.createElement("ul", { className: "results", id: "results" })
+          React.createElement(
+            "ul",
+            { className: "results" },
+            this.state.timeTable.map(function (time) {
+              return React.createElement(
+                "li",
+                null,
+                time
+              );
+            })
+          )
         )
       );
     }
