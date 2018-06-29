@@ -111,8 +111,8 @@ var Stopwatch = function (_React$Component) {
       });
     }
   }, {
-    key: "get",
-    value: function get() {
+    key: "save",
+    value: function save() {
       this.setState({
         timeTable: [].concat(_toConsumableArray(this.state.timeTable), [this.getFormattedTimes()])
       });
@@ -132,7 +132,7 @@ var Stopwatch = function (_React$Component) {
             "nav",
             { className: "controls" },
             React.createElement(
-              "a",
+              "button",
               {
                 href: "#",
                 className: "button start",
@@ -143,7 +143,7 @@ var Stopwatch = function (_React$Component) {
               "Start"
             ),
             React.createElement(
-              "a",
+              "button",
               {
                 href: "#",
                 className: "button stop",
@@ -154,7 +154,7 @@ var Stopwatch = function (_React$Component) {
               "Stop"
             ),
             React.createElement(
-              "a",
+              "button",
               {
                 href: "#",
                 className: "button reset",
@@ -165,9 +165,9 @@ var Stopwatch = function (_React$Component) {
               "Reset"
             ),
             React.createElement(
-              "a",
+              "button",
               { href: "#", className: "button save", onClick: function onClick() {
-                  return _this3.get();
+                  return _this3.save();
                 } },
               "Save"
             )

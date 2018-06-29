@@ -34,12 +34,15 @@ body {
   	width: 50%; 
 }
 .button {
+	padding-bottom: 15px;
+	background: none;
+	border: none;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-weight: bold;
+	outline: none;
 }
-.stopwatch, li, a, nav {
-	padding-top: 30px;
+.stopwatch, li, button, nav {
 	text-align: center;
 	text-decoration: none;
 	font-size: 40px;
