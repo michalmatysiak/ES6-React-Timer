@@ -74,7 +74,7 @@ class Stopwatch extends React.Component {
       }
     });
   }
-  save() {
+  saveTime() {
     this.setState({
       timeTable: [...this.state.timeTable, this.getFormattedTimes()]
     });
@@ -85,27 +85,24 @@ class Stopwatch extends React.Component {
         <div className="col-6">
           <nav className="controls">
             <button
-              href="#"
               className="button start"
               onClick={() => this.start()}
             >
               Start
             </button>
             <button
-              href="#"
               className="button stop"
               onClick={() => this.stop()}
             >
               Stop
             </button>
             <button
-              href="#"
               className="button reset"
               onClick={() => this.reset()}
             >
               Reset
             </button>
-            <button href="#" className="button save" onClick={() => this.save()}>
+            <button className="button save" onClick={() => this.saveTime()}>
               Save
             </button>
           </nav>
