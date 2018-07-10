@@ -30,6 +30,22 @@ body {
 .save {
 	color: #1034a6;
 }
+.start:hover {
+	color: #444;
+	cursor: pointer;
+}
+.stop:hover {
+	color: #d0003d;
+	cursor: pointer;
+}
+.reset:hover {
+	color: #0a4401;
+	cursor: pointer;
+}
+.save:hover {
+	color: #0011a3;
+	cursor: pointer;
+}
 .col-6 {
   	width: 50%; 
 }
