@@ -110,7 +110,7 @@ class Stopwatch extends React.Component {
             {this.getFormattedTimes()}
           </div>
           <ul className="results"> 
-            {this.state.timeTable.map(time => <li>{time}</li>)}
+            {this.state.timeTable.map((time,i) => <li key={i}>{time}</li>)}
           </ul>
         </div>
       </div>
